@@ -3,7 +3,7 @@ use warlock::boot;
 
 #[tokio::main]
 async fn main() {
-    let _guard = boot::init().unwrap();
+    let _guard = boot::init().await.unwrap();
     let app = warlock::router::router();
     let listener = tokio::net::TcpListener::bind(format!(
         "{}:{}",

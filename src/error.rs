@@ -15,7 +15,8 @@ pub enum MyError{
     RedisError(#[from] redis::RedisError),
     #[error("err-info:{0}")]
     DbError(#[from] sea_orm::error::DbErr),
-
+    #[error("err-info:{0}")]
+    CryptoError(#[from] bcrypt::BcryptError),
 
 }
 
