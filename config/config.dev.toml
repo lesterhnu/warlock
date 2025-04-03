@@ -1,0 +1,8 @@
+[app]
+app_name="warlock"
+
+
+[log]
+level="debug"
+dir="logs"
+log_file="warlock.log"
