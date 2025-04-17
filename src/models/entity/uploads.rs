@@ -8,26 +8,26 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "users"
+        "uploads"
     }
 }
 
 #[derive(Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel, Eq, Serialize, Deserialize)]
 pub struct Model {
     pub id: i32,
-    pub username: String,
-    pub password: String,
-    pub email: Option<String>,
-    pub last_login: TimeDateTime,
+    pub file_name: String,
+    pub file_ext_name: String,
+    pub file_source_name: String,
+    pub create_time: TimeDateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
     Id,
-    Username,
-    Password,
-    Email,
-    LastLogin,
+    FileName,
+    FileExtName,
+    FileSourceName,
+    CreateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DerivePrimaryKey)]
@@ -50,10 +50,10 @@ impl ColumnTrait for Column {
     fn def(&self) -> ColumnDef {
         match self {
             Self::Id => ColumnType::Integer.def(),
-            Self::Username => ColumnType::String(StringLen::N(64u32)).def().unique(),
-            Self::Password => ColumnType::String(StringLen::N(255u32)).def(),
-            Self::Email => ColumnType::String(StringLen::N(128u32)).def().null(),
-            Self::LastLogin => ColumnType::DateTime.def(),
+            Self::FileName => ColumnType::String(StringLen::N(255u32)).def(),
+            Self::FileExtName => ColumnType::String(StringLen::N(255u32)).def(),
+            Self::FileSourceName => ColumnType::String(StringLen::N(255u32)).def(),
+            Self::CreateTime => ColumnType::DateTime.def(),
         }
     }
 }

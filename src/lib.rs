@@ -14,7 +14,7 @@ pub use models::entity;
 pub use models::dto;
 pub use pkg::crypto;
 pub use boot::conf::CONFIG;
-pub use boot::db::DB;
+pub use boot::db::get_db;
 pub use error::MyError;
 
 

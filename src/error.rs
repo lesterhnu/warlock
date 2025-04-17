@@ -17,6 +17,8 @@ pub enum MyError{
     DbError(#[from] sea_orm::error::DbErr),
     #[error("err-info:{0}")]
     CryptoError(#[from] bcrypt::BcryptError),
+    #[error("err-info:{0}")]
+    MultipartError(#[from] axum::extract::multipart::MultipartError),
 
 }
 

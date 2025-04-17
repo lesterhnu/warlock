@@ -1,4 +1,4 @@
-use axum::routing::get;
+use axum::routing::{get, post};
 use axum::Router;
 use crate::handler;
 pub fn router() -> Router {
@@ -13,6 +13,7 @@ fn base_route() -> Router {
     Router::new()
         .route("/ping", get(handler::base::ping))
         .route("/test_config_error", get(handler::base::test_config_error))
+        .route("/upload", post(handler::base::upload_file))
 }
 fn user_route()->Router{
     Router::new()

@@ -11,7 +11,7 @@ pub struct User{
 impl From<users::Model> for User{
     fn from(u: users::Model) -> Self {
         User{
-            id: u.id,
+            id: u.id as i64,
             username: u.username,
             email: u.email.unwrap_or("".to_string()),
             last_login: u.last_login.to_string(),
