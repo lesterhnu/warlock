@@ -19,7 +19,10 @@ pub enum MyError{
     CryptoError(#[from] bcrypt::BcryptError),
     #[error("err-info:{0}")]
     MultipartError(#[from] axum::extract::multipart::MultipartError),
-
+    #[error("invalid parameter: {0}")]
+    ParamError(#[from]validator::ValidationErrors),
+    #[error("request error: {0}")]
+    RequestError(#[from] reqwest::Error),
 }
 
 

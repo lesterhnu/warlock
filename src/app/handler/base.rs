@@ -1,5 +1,5 @@
 use crate::{dto::upload::UploadFileInfo, error::MyError, pkg::utils, resp::AppResp, Result};
-use axum::extract::Multipart;
+use axum::{extract::Multipart, response::Html};
 use tokio::fs::File;
 
 pub async fn ping() -> &'static str {
@@ -14,6 +14,7 @@ pub async fn upload_file(mut multi:Multipart) -> Result<AppResp<()>> {
         let file_name = field.file_name().map(|name|name.to_string()).unwrap_or_else(||utils::new_uuid());
         let file_path = format!("storage/{}-{}",  utils::new_uuid(),file_name);
         File::create(&file_path).await.map_err(|err|{
+            tracing::debug!("create file error:{}",err);
             MyError::from_msg(format!("create file error:{}",err))
         })?;
         let m = UploadFileInfo{
@@ -27,4 +28,11 @@ pub async fn upload_file(mut multi:Multipart) -> Result<AppResp<()>> {
     }
     tracing::info!("success");
     Ok(AppResp::Success)
+}
+
+pub async fn test_reqwest()->Result<Html<String>>{
+    let resp = crate::ReqClient.get("https://www.baidu.com").send().await?;
+    let res = resp.text().await?;
+
+    Ok(Html(res))
 }

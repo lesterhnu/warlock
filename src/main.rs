@@ -13,5 +13,32 @@ async fn main() {
     .await
     .unwrap();
     tracing::debug!("Listening on http://{}", listener.local_addr().unwrap());
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app)
+    .with_graceful_shutdown(shut_down())
+    .await.unwrap();
+}
+
+async fn shut_down() {
+    let ctrl_c = async {
+        tokio::signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+    tokio::select! {
+        _ = ctrl_c => {
+            tracing::info!("Ctrl+C received, shutting down");
+        },
+        _ = terminate => {},
+    }
 }

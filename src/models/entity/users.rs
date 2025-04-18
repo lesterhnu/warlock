@@ -18,7 +18,7 @@ pub struct Model {
     pub username: String,
     pub password: String,
     pub email: Option<String>,
-    pub last_login: TimeDateTime,
+    pub last_login: Option<TimeDateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
@@ -53,7 +53,7 @@ impl ColumnTrait for Column {
             Self::Username => ColumnType::String(StringLen::N(64u32)).def().unique(),
             Self::Password => ColumnType::String(StringLen::N(255u32)).def(),
             Self::Email => ColumnType::String(StringLen::N(128u32)).def().null(),
-            Self::LastLogin => ColumnType::DateTime.def(),
+            Self::LastLogin => ColumnType::DateTime.def().null(),
         }
     }
 }

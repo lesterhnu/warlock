@@ -18,7 +18,7 @@ impl MigrationTrait for Migration {
                     .col(string(Users::Username).string_len(64).not_null())
                     .col(string(Users::Password).string_len(255).not_null().comment("密码"))
                     .col(string_null(Users::Email).string_len(128).comment("邮箱"))
-                    .col(date_time(Users::LastLogin).comment("上次登录时间"))
+                    .col(date_time_null(Users::LastLogin).comment("上次登录时间"))
                     .index(Index::create().name("idx_users_username").col(Users::Username).unique())
                     .to_owned(),
             )

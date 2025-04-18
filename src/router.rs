@@ -14,8 +14,11 @@ fn base_route() -> Router {
         .route("/ping", get(handler::base::ping))
         .route("/test_config_error", get(handler::base::test_config_error))
         .route("/upload", post(handler::base::upload_file))
+        .route("/test_request", get(handler::base::test_reqwest))
 }
 fn user_route()->Router{
     Router::new()
         .route("/{id}",get(handler::user::get_user_by_id))
+        .route("/create_user", post(handler::user::create_user))
+        .route("/login", post(handler::user::login))
 }
