@@ -2,5 +2,6 @@
 
 pub mod prelude;
 
+pub mod banner;
 pub mod uploads;
 pub mod users;

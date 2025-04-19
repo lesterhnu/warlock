@@ -1,6 +1,6 @@
 use warlock::CONFIG;
 use warlock::boot;
-
+use tokio::signal;
 #[tokio::main]
 async fn main() {
     let _guard = boot::init().await.unwrap();
@@ -27,7 +27,7 @@ async fn shut_down() {
 
     #[cfg(unix)]
     let terminate = async {
-        signal::unix::signal(signal::unix::SignalKind::terminate())
+        tokio::signal::unix::signal(signal::unix::SignalKind::terminate())
             .expect("failed to install signal handler")
             .recv()
             .await;

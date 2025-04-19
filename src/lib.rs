@@ -9,6 +9,7 @@ pub mod models;
 
 pub use app::handler;
 pub use app::service;
+pub use app::dao;
 
 pub use models::entity;
 pub use models::dto;

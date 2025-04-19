@@ -5,6 +5,7 @@ pub fn router() -> Router {
     Router::new()
         .nest("/base", base_route())
         .nest("/user", user_route())
+        .nest("/banner", banner_route())
         .fallback(handler::not_found)
 }
 
@@ -15,6 +16,10 @@ fn base_route() -> Router {
         .route("/test_config_error", get(handler::base::test_config_error))
         .route("/upload", post(handler::base::upload_file))
         .route("/test_request", get(handler::base::test_reqwest))
+}
+fn banner_route()->Router{
+    Router::new()
+        .route("/get_banners",get(handler::base::get_banner))
 }
 fn user_route()->Router{
     Router::new()
