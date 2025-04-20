@@ -1,4 +1,4 @@
-use crate::{dto::{self, upload::UploadFileInfo}, error::MyError, pkg::utils, resp::AppResp, service, Result};
+use crate::{dto::{ upload::UploadFileInfo}, error::MyError, pkg::utils, resp::AppResp, service, Result};
 use axum::{extract::Multipart, response::Html};
 use tokio::fs::File;
 
@@ -37,7 +37,3 @@ pub async fn test_reqwest()->Result<Html<String>>{
     Ok(Html(res))
 }
 
-pub async fn get_banner()->Result<AppResp<Vec<dto::banner::BannerDto>>>{
-    let res = service::banner::get_banner().await?;
-    Ok(AppResp::SuccessWithData(res))
-}

@@ -1,8 +1,10 @@
 // use color_eyre::Result;
 use time::{macros::format_description, UtcOffset};
+use tracing_appender::rolling::{Rotation,RollingFileAppender};
 use tracing_appender::{non_blocking::WorkerGuard, rolling};
 // use tracing_error::ErrorLayer;
 use tracing_subscriber::fmt::time::OffsetTime;
+use tracing_subscriber::Layer;
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 use crate::Result;
 
@@ -29,12 +31,29 @@ pub fn register_log(conf:config::Config) -> Result<WorkerGuard> {
         .with_ansi(false)
         .with_writer(non_blocking_appender);
 
+    let sql_writer = RollingFileAppender::new(
+        Rotation::DAILY, 
+        "./logs", 
+        "sql.log"
+    );
+    let sql_layer = fmt::layer()
+        .with_writer(sql_writer)
+        .event_format(
+            fmt::format()
+            .with_ansi(false)
+            .with_level(false)
+            .with_line_number(true)
+        )
+        .with_filter(EnvFilter::builder().with_default_directive(tracing::Level::DEBUG.into()).parse("sea_orm=debug").unwrap());
+
     tracing_subscriber::registry()
         .with(env_filter)
         .with(formatting_layer)
         //.with(ErrorLayer::default())
         .with(file_layer)
+        .with(sql_layer)
         .init();
     // color_eyre::install()?;
     Ok(guard)
 }
+

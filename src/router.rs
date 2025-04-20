@@ -19,7 +19,9 @@ fn base_route() -> Router {
 }
 fn banner_route()->Router{
     Router::new()
-        .route("/get_banners",get(handler::base::get_banner))
+        .route("/get_banners",get(handler::banner::get_banner))
+        .route("/create+banner", post(handler::banner::create_banner))
+        
 }
 fn user_route()->Router{
     Router::new()

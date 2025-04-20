@@ -35,3 +35,4 @@ pub async fn init_mysql()->crate::Result<()>{
     // let db = sea_orm::Database::connect(dsn).await?;
 
 }
+

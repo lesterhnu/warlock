@@ -24,7 +24,7 @@ time ={version =  "0.3.41",features = ["formatting", "parsing", "macros", "std",
 tokio = {version = "1.44.2", features = ["full"]}
 tracing = "0.1.41"
 tracing-appender = "0.2.3"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter", "local-time"] }
+tracing-subscriber = { version = "0.3.19", features = ["env-filter", "local-time","fmt"] }
 uuid = {version = "1.16.0",features = ["v4"]}
 validator = {version="0.20.0",features = ["derive"]}
 

@@ -1,6 +1,5 @@
 use warlock::CONFIG;
 use warlock::boot;
-use tokio::signal;
 #[tokio::main]
 async fn main() {
     let _guard = boot::init().await.unwrap();
