@@ -11,6 +11,9 @@ use tracing_appender::non_blocking::WorkerGuard;
 
 lazy_static!{
     pub static ref ReqClient: reqwest::Client = request::new_request_client();
+
+    
+    pub static ref Chrome:headless_chrome::Browser = headless_chrome::Browser::default().unwrap();
 }
 pub async  fn init()->Result<WorkerGuard>{
     let cfg = load_config();

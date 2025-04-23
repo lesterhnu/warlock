@@ -1,9 +1,26 @@
-use crate::{dto::{ upload::UploadFileInfo}, error::MyError, pkg::utils, resp::AppResp, service, Result};
-use axum::{extract::Multipart, response::Html};
+use crate::{dto::upload::UploadFileInfo, error::MyError, pkg::utils, resp::AppResp,  Result};
+use axum::{extract::{Multipart, Query}, response::Html};
+use serde::Deserialize;
 use tokio::fs::File;
+// use warlock_chrome::CHROME;
+// use headless_chrome::Browser;
+use crate::boot::Chrome as chrome;
+#[derive(Debug,Deserialize)]
+pub struct PingReq {
+    pub url:String
+}
 
-pub async fn ping() -> &'static str {
-    "ping"
+pub async fn ping(Query(req):Query<PingReq>) -> String {
+    // let chrome = Browser::default().unwrap();
+    let tab = chrome.new_tab().unwrap();
+    let id = tab.get_target_id();
+    let _res = tab.navigate_to(req.url.as_str()).unwrap();
+    let content = tab.wait_for_element("body").unwrap().get_content().unwrap();
+    let tabs = chrome.get_tabs().lock().unwrap().len();
+    tab.close(true).unwrap();
+    tracing::info!("tabs:{:?}",tabs);
+    tracing::info!("tab id:{}",id);
+    content
 }
 pub async fn test_config_error()->Result<()>{
     Err(MyError::ConfigError(config::ConfigError::NotFound("test".to_string())).into())
