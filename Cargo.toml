@@ -5,8 +5,10 @@ edition = "2024"
 
 [workspace]
 members = [
-    ".", "crud_macro","migration"
-]
+    ".",
+    "migration", 
+    "warlock_chrome",
+    ]
 
 [dependencies]
 aliyun-oss-rust-sdk = {version = "0.2.1",features = ["blocking","debug-print"]}
@@ -32,4 +34,4 @@ tracing-appender = "0.2.3"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter", "local-time","fmt"] }
 uuid = {version = "1.16.0",features = ["v4"]}
 validator = {version="0.20.0",features = ["derive"]}
-
+warlock_chrome = {path = "warlock_chrome"}

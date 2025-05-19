@@ -1,0 +1,9 @@
+[package]
+name = "warlock_chrome"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+headless_chrome = "1.0.17"
+tracing = { version = "0.1.40", features = ["std"] }
+lazy_static = { version = "1.5.0" }

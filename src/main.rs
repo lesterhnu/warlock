@@ -37,6 +37,7 @@ async fn shut_down() {
     tokio::select! {
         _ = ctrl_c => {
             tracing::info!("Ctrl+C received, shutting down");
+            std::process::exit(0);
         },
         _ = terminate => {},
     }
