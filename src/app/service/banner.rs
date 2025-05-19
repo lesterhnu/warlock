@@ -20,3 +20,12 @@ pub async fn create_banner(banner_list:Vec<BannerDto>)->Result<()>{
     crate::dao::banner::create_banner(model_list).await?;
     Ok(())
 }
+
+pub async fn delete_banner(id:i32) -> Result<()> {
+    crate::dao::banner::delete_banner(vec![id]).await?;
+    Ok(())
+}
+pub async fn batch_delete_banner(ids:Vec<i32>)->Result<()>{
+    crate::dao::banner::delete_banner(ids).await?;
+    Ok(())
+}

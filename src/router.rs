@@ -16,11 +16,14 @@ fn base_route() -> Router {
         .route("/test_config_error", get(handler::base::test_config_error))
         .route("/upload", post(handler::base::upload_file))
         .route("/test_request", get(handler::base::test_reqwest))
+        .route("/get_sign", get(handler::base::get_oss_sign))
 }
 fn banner_route()->Router{
     Router::new()
         .route("/get_banners",get(handler::banner::get_banner))
         .route("/create+banner", post(handler::banner::create_banner))
+        .route("/delete", get(handler::banner::delete_banner))
+        .route("/batch_delete", post(handler::banner::batch_delete_banner))
         
 }
 fn user_route()->Router{

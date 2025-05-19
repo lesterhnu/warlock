@@ -16,11 +16,14 @@ pub struct Args {
 pub fn load_config() -> config::Config {
     let args = Args::parse();
     let conf_file = args.conf_file;
-    config::Config::builder()
-        .add_source(config::File::with_name(&conf_file))
-        .build()
-        .expect("Failed to load config")
+    let  cfg = config::Config::builder().add_source(config::File::with_name(&conf_file))
+    .set_default("app.app_name", "zerg").unwrap()
+    .set_default("app.env", "dev").unwrap()
+    .build().expect("Failed to load config");
+    cfg
 }
+
+pub fn set_default() {}
 
 #[derive(Debug, Deserialize)]
 pub struct Cfg {
@@ -44,18 +47,18 @@ pub struct Log {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Db{
+pub struct Db {
     #[serde(rename = "type")]
-    pub db_type:String,
-    pub host:String,
-    pub port:i32,
-    pub user:String,
-    pub password:String,
-    pub database:String,
+    pub db_type: String,
+    pub host: String,
+    pub port: i32,
+    pub user: String,
+    pub password: String,
+    pub database: String,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Redis{
-    pub host:String,
-    pub port:i32,
+pub struct Redis {
+    pub host: String,
+    pub port: i32,
 }

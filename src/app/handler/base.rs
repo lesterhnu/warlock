@@ -1,12 +1,19 @@
-use crate::{dto::{ upload::UploadFileInfo}, error::MyError, pkg::utils, resp::AppResp, service, Result};
+use crate::{dto::upload::UploadFileInfo, error::MyError, pkg::utils, resp::AppResp, Result};
 use axum::{extract::Multipart, response::Html};
 use tokio::fs::File;
 
-pub async fn ping() -> &'static str {
-    "ping"
+pub async fn ping() -> String{
+    "ping".to_string()
+    // let s = crate::pkg::ali::oss::get_sign().unwrap();
+    // s
 }
 pub async fn test_config_error()->Result<()>{
     Err(MyError::ConfigError(config::ConfigError::NotFound("test".to_string())).into())
+}
+
+pub async fn get_oss_sign()->Result<AppResp<crate::pkg::ali::oss::UploadSignInfo>>{
+    let res = crate::pkg::ali::oss::get_sign()?;
+    Ok(AppResp::SuccessWithData(res))
 }
 
 pub async fn upload_file(mut multi:Multipart) -> Result<AppResp<()>> {

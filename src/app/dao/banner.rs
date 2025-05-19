@@ -20,3 +20,12 @@ pub async fn create_banner(list:Vec<entity::banner::Model>)->Result<i32>{
     txn.commit().await?;
     Ok(res.last_insert_id as i32)
 }
+
+pub async fn delete_banner(ids:Vec<i32>)->Result<()>{
+    let db = get_db()?;
+    entity::banner::Entity::delete_many()
+        .filter(banner::Column::Id.is_in(ids))
+        .exec(db)
+        .await?;
+    Ok(())
+}
