@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        dddd
+    </div>
+    <div width="50%" height="100%">
+        <iframe src="https://www.lesterhnu.top" frameborder="1"></iframe>
+    </div>
+</body>
+</html>
+
+
+curl --location --request POST 'http://127.0.0.1:3444/usable/all' \
+--header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
+--header 'Content-Type: application/json' \
+--data '{
+    "host_url":"http://www.163.com/",
+    "task_id":"123",
+    "do_http":true,
+    "do_post":true,
+    "do_head":true,
+    "do_get":true,
+    "do_ping":true,
+    "user_agent":"chrome"
+}'

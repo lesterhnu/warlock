@@ -2,6 +2,7 @@
 
 pub mod prelude;
 
-pub mod banner;
+pub mod book;
+pub mod tag;
 pub mod uploads;
 pub mod users;

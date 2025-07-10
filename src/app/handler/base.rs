@@ -1,6 +1,7 @@
 use crate::{dto::upload::UploadFileInfo, error::MyError, pkg::utils, resp::AppResp, Result};
 use axum::{extract::Multipart, response::Html};
 use tokio::fs::File;
+use askama::Template;
 
 pub async fn ping() -> String{
     "ping".to_string()
@@ -44,3 +45,12 @@ pub async fn test_reqwest()->Result<Html<String>>{
     Ok(Html(res))
 }
 
+
+#[derive(Debug,Template)]
+#[template(path = "iframe_test.html")]
+pub struct IframeTestTemplate;
+
+pub async fn iframe_test_ui()->Result<Html<String>>{
+    let t = IframeTestTemplate {};
+    Ok(Html(t.render()?))
+}

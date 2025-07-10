@@ -1,9 +1,10 @@
-use crate::dto::user::{CreateUserReq,LoginReq, User};
+use crate::dto::user::{CreateUserReq, LoginReq, User};
 use crate::pkg::utils;
 use crate::resp::AppResp;
-use crate::{crypto, entity, get_db, MyError, Result};
-use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, QueryFilter};
+use crate::{MyError, Result, crypto, entity, get_db};
+use anyhow::anyhow;
 use sea_orm::Set;
+use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, QueryFilter};
 
 // 创建用户
 pub async fn create_user(_user: CreateUserReq) -> Result<AppResp<()>> {
@@ -48,20 +49,20 @@ pub async fn login(user: LoginReq) -> Result<AppResp<User>> {
         .filter(entity::users::Column::Username.eq(user.username))
         .one(conn)
         .await?;
-    match record{
+    match record {
         Some(m) => {
             tracing::info!("user found: {:?}", m);
-            if !crypto::bcrypt_verify(&user.password,m.password.as_str() )? {
-                return Err(MyError::from_msg("密码错误".to_string()));
+            if !crypto::bcrypt_verify(&user.password, m.password.as_str())? {
+                return Err(crate::AppError::from(anyhow!("密码错误")));
             }
             //更新登录时间
             let mut am = m.clone().into_active_model();
             am.last_login = Set(Some(utils::get_local_time()));
             am.update(conn).await?;
             Ok(AppResp::SuccessWithData(User::from(m)))
-        },
+        }
         None => {
-            return Err(MyError::from_msg("用户不存在".to_string()));
+            return Err(crate::AppError::from(anyhow!("用户不存在")));
         }
     }
 }

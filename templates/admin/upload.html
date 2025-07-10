@@ -1,0 +1,16 @@
+{% extends "layout/common.html" %}
+
+{% block title %}
+<title>upload file</title>
+{% endblock %}
+
+{% block content %}
+<div>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="上传" />
+    </form>
+    </form>
+</div>
+
+{% endblock %}
