@@ -25,6 +25,8 @@ pub enum MyError {
     RequestError(#[from] reqwest::Error),
     #[error("template error: {0}")]
     TemplateError(#[from] askama::Error),
+    #[error("serde:{0}")]
+    SerdeError(#[from] serde_json::Error),
 }
 
 impl MyError {

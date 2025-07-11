@@ -69,14 +69,14 @@
         </div>
         <div class="px-4 flex-1 flex flex-col justify-center">
           <p class="text-gray-800 text-base leading-relaxed text-center px-2">{{ book.content }}</p>
-          <div class="flex flex-wrap gap-1.5 py-4">
+          <!-- <div class="flex flex-wrap gap-1.5 py-4">
             <span v-for="tag in book.tags" :key="tag.text" :class="[
             'px-2 py-0.5 rounded-full text-xs',
             getTagClass(tag.type)
           ]">
               {{ tag.text }}
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -113,16 +113,16 @@ const toggleDropdown = (index: number) => {
     }
   });
 };
-const getTagClass = (type: string) => {
-  const classes = {
-    primary: 'bg-blue-50 text-blue-600',
-    success: 'bg-green-50 text-green-600',
-    warning: 'bg-yellow-50 text-yellow-600',
-    danger: 'bg-red-50 text-red-600',
-    info: 'bg-gray-50 text-gray-600'
-  };
-  return classes[type] || classes.primary;
-};
+// const getTagClass = (type: string) => {
+//   const classes = {
+//     primary: 'bg-blue-50 text-blue-600',
+//     success: 'bg-green-50 text-green-600',
+//     warning: 'bg-yellow-50 text-yellow-600',
+//     danger: 'bg-red-50 text-red-600',
+//     info: 'bg-gray-50 text-gray-600'
+//   };
+//   return classes[type] || classes.primary;
+// };
 const books = [
   {
     title: '人类简史',

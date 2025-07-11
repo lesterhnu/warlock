@@ -2,7 +2,6 @@ use crate::dto::user::{CreateUserReq, LoginReq, User};
 use crate::pkg::utils;
 use crate::resp::AppResp;
 use crate::{MyError, Result, crypto, entity, get_db};
-use anyhow::anyhow;
 use sea_orm::Set;
 use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, QueryFilter};
 
@@ -53,7 +52,8 @@ pub async fn login(user: LoginReq) -> Result<AppResp<User>> {
         Some(m) => {
             tracing::info!("user found: {:?}", m);
             if !crypto::bcrypt_verify(&user.password, m.password.as_str())? {
-                return Err(crate::AppError::from(anyhow!("密码错误")));
+                // return Err(crate::AppError::from(anyhow!("密码错误")));
+                return Err(MyError::from_msg("密码错误".to_string()));
             }
             //更新登录时间
             let mut am = m.clone().into_active_model();
@@ -62,7 +62,8 @@ pub async fn login(user: LoginReq) -> Result<AppResp<User>> {
             Ok(AppResp::SuccessWithData(User::from(m)))
         }
         None => {
-            return Err(crate::AppError::from(anyhow!("用户不存在")));
+            // return Err(crate::AppError::from(anyhow!("用户不存在")));
+            return Err(MyError::from_msg("用户不存在".to_string()));
         }
     }
 }

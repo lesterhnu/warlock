@@ -33,7 +33,7 @@
         </div>
         <div class="px-4 flex-1 flex flex-col justify-center">
           <p
-            class="text-gray-800 flex-grow mt-10 text-base font-serif leading-10 tracking-widest text-lg indent-8"
+            class="text-gray-800 flex-grow  text-base font-serif leading-10 tracking-widest text-lg indent-8  flex flex-col justify-center"
           >
             {{ book.content }}
           </p>
@@ -44,6 +44,11 @@
               :class="['px-2 py-0.5 rounded-full text-xs', getTagClass(tag.type)]"
             >
               {{ tag.text }}
+            </span>
+          </div> -->
+          <!-- <div class="flex flex-wrap gap-1.5 py-4" >
+            <span :class="['px-2 py-0.5 rounded-full text-xs', tagClasses[get_random(0, 4)]]">
+              毛选
             </span>
           </div> -->
         </div>
@@ -97,6 +102,13 @@ const titleColor = [
   'text-orange-600',
 ]
 
+const tagClasses=[
+    'bg-blue-50 text-blue-600',
+    'bg-green-50 text-green-600',
+    'bg-yellow-50 text-yellow-600',
+    'bg-red-50 text-red-600',
+    'bg-gray-50 text-gray-600',
+]
 const fetchPosts = async () => {
   try {
     const response = await get('/book/get_books')

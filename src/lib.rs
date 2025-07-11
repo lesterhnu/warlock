@@ -23,7 +23,7 @@ pub use error::{MyError,AppError};
 pub use resp::AppResp;
 
 
-pub type Result<T> = std::result::Result<T,AppError>;
+// pub type Result<T> = std::result::Result<T,AppError>;
 
-// pub type Result<T> = std::result::Result<T, MyError>;
+pub type Result<T> = std::result::Result<T, MyError>;
 

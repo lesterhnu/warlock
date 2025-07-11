@@ -1,8 +1,11 @@
 use crate::models::entity::book;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize)]
+
+
+#[derive(Debug, Serialize,Deserialize)]
 pub struct Book {
+    #[serde(skip_deserializing)]
     pub id: i64,
     pub title: Option<String>,
     pub author: Option<String>,

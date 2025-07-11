@@ -1,4 +1,4 @@
-use crate::{CONFIG, MyError, Result};
+use crate::{MyError, CONFIG, Result};
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::time::Duration;
 use tokio::sync::OnceCell;
@@ -7,9 +7,10 @@ pub static DB: OnceCell<DatabaseConnection> = OnceCell::const_new();
 
 pub fn get_db<'a>() -> Result<&'a DatabaseConnection> {
     let res = DB.get().ok_or(MyError::from_msg("db error".to_string()))?;
+    // let res = DB.get().ok_or(AppError::from(anyhow::anyhow!("db error")))?;
     Ok(res)
 }
-pub async fn init_mysql()->crate::Result<()>{
+pub async fn init_mysql() -> crate::Result<()> {
     let dsn = format!(
         "mysql://{}:{}@{}:{}/{}",
         CONFIG.get_string("db.user")?,
@@ -33,6 +34,4 @@ pub async fn init_mysql()->crate::Result<()>{
     tracing::debug!("数据库连接成功");
     Ok(())
     // let db = sea_orm::Database::connect(dsn).await?;
-
 }
-
