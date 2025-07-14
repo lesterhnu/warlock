@@ -26,7 +26,7 @@ async fn shut_down() {
 
     #[cfg(unix)]
     let terminate = async {
-        tokio::signal::unix::signal(signal::unix::SignalKind::terminate())
+        tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
             .expect("failed to install signal handler")
             .recv()
             .await;
