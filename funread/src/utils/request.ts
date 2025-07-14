@@ -115,7 +115,7 @@ const createRequest = (baseConfig?: RequestConfig) => {
   // 封装 POST 方法
   const post = <T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> => {
     return instance
-      .post<T>(url, { ...config, params: data || undefined })
+      .post<T>(url, data)
       .then((response) => response.data)
   }
 

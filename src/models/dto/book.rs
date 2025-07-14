@@ -28,3 +28,14 @@ impl From<book::Model> for Book {
         }
     }
 }
+
+
+#[derive(Debug,Deserialize)]
+pub struct FindBookReq {
+    pub title: Option<String>,
+    pub author: Option<String>,
+    pub content: Option<String>,
+    pub chapter: Option<String>,
+    pub page: Option<u64>,
+    pub page_size: Option<u64>,
+}

@@ -17,3 +17,14 @@ pub async fn create_book(b: dto::book::Book) -> Result<()> {
     tracing::info!("create book success");
     Ok(())
 }
+
+pub async fn find_books(req: dto::book::FindBookReq) -> Result<Vec<Book>> {
+    tracing::info!("search books: {:?}", req);
+    let books = dao::book::find_books(req).await?;
+    let mut res = Vec::new();
+    for b in books.into_iter() {
+        res.push(Book::from(b))
+    }
+    tracing::info!("search books success");
+    Ok(res)
+}

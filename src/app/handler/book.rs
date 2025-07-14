@@ -16,6 +16,11 @@ pub async fn create_book(Json(req): Json<dto::book::Book>) -> Result<AppResp<()>
     Ok(AppResp::Success)
 }
 
+pub async fn find_books(Json(req):Json<dto::book::FindBookReq>)-> Result<AppResp<Vec<dto::book::Book>>>{
+    let res = service::book::find_books(req).await?;
+    Ok(AppResp::SuccessWithData(res))
+}
+
 // pub async fn delete_banner(Query(id):Query<i32>)->Result<AppResp<()>>{
 //     service::banner::delete_banner(id).await?;
 //     Ok(AppResp::Success)

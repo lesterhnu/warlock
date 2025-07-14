@@ -16,7 +16,7 @@ pub fn router() -> Router {
         // .nest_service("/favicon.ico", ServeFile::new("static/favicon.ico"))
         // .nest_service("/static", ServeDir::new("funread/dist/"))
         .fallback(handler::not_found)
-        .layer(CorsLayer::new().allow_origin(Any))
+        .layer(CorsLayer::new().allow_origin(Any).allow_headers(Any).allow_methods(Any))
 }
 
 fn admin_route() -> Router {
@@ -38,6 +38,7 @@ fn book_route() -> Router {
     Router::new()
         .route("/get_books", get(handler::book::get_book))
         .route("/create_book", post(handler::book::create_book))
+        .route("/search", post(handler::book::find_books))
     // .route("/delete", get(handler::book::delete_banner))
     // .route("/batch_delete", post(handler::book::batch_delete_banner))
 }

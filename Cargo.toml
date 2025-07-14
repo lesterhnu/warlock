@@ -6,8 +6,7 @@ edition = "2024"
 [workspace]
 members = [
     ".",
-    "migration", 
-    # "warlock_chrome",
+    "migration",
     ]
 
 [dependencies]
@@ -18,7 +17,7 @@ base64 = "0.22.1"
 bcrypt = "0.17.0"
 clap = {version="4.5.38",features = ["derive"]}
 config = "0.15.11"
-crud_macro = {path = "crud_macro"}
+# crud_macro = {path = "crud_macro"}
 hmac = "0.12.1"
 lazy_static = "1.5.0"
 openssl-sys = {version = "0.9.109", features = ["vendored"]}
@@ -38,13 +37,12 @@ tracing-appender = "0.2.3"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter", "local-time","fmt"] }
 uuid = {version = "1.16.0",features = ["v4"]}
 validator = {version="0.20.0",features = ["derive"]}
-warlock_chrome = {path = "warlock_chrome"}
 
 [profile.release]
 opt-level = 3
 
 [target.x86_64-unknown-linux-gnu]
-linker = "x86_64-unknown-linux-gcc"
+linker = "gcc"
 
 [target.x86_64-unknown-linux-musl]
 linker = "x86_64-unknown-musl-gcc"
