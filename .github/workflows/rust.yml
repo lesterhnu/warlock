@@ -22,3 +22,8 @@ jobs:
         command: build
         args: --release 
         use-cross: ${{ matrix.cross }}
+    - name: Upload 
+      uses: actions/upload-artifact@v4
+      with:
+        name: warlock
+        path: target/release/warlock
