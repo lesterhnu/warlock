@@ -21,6 +21,7 @@ config = "0.15.11"
 crud_macro = {path = "crud_macro"}
 hmac = "0.12.1"
 lazy_static = "1.5.0"
+openssl-sys = {version = "0.9.109", features = ["vendored"]}
 redis = { version = "0.31.0", features = ["tokio-comp"] }
 reqwest = {version = "0.12.15", features = ["json", "stream", "cookies", "blocking"]}
 sea-orm = {version = "1.1.11",features = ["runtime-tokio-native-tls", "sqlx-mysql","macros","debug-print"]}
